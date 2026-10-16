@@ -33,5 +33,12 @@ This is a classical 1-D filter: `update()` performs the predict step (state is a
 
 A negative `processNoise` or `measurementNoise` will throw. A `NaN` or non-finite measurement will throw. `initialState` and `initialCovariance` may be any finite numbers; the first `update` call naturally incorporates the initial covariance through the gain. Providing exactly two values keeps the constructor unambiguous; partial config is rejected rather than defaulted to a value the caller may not have intended.
 
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
+
 ## License
 MIT
